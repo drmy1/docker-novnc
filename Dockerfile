@@ -46,24 +46,22 @@ RUN set -xe && \
 
 COPY --from=easy-novnc-build /bin/easy-novnc /usr/local/bin/
 COPY ./templates/. /
-COPY docker-entrypoint.sh /usr/local/bin/
 
 RUN set -xe && \
     chmod 0644 /etc/cron.d/*.j2 /etc/nginx/*.j2 /etc/xdg/openbox/*.j2 /etc/*.j2 && \
     chmod 0700 /etc/entrypoint.d && \
     chmod 0444 /usr/share/applications/* /etc/xdg/autostart/* && \
-    chmod +x /usr/local/bin/docker-entrypoint.sh && \
     chmod a+x /usr/bin/winbox64 && \
     chmod a+x /usr/bin/winbox-2.2.16 && \
     groupadd --gid ${PGID} app && \
     useradd --home-dir ${HOME} --shell /bin/bash --uid ${PUID} --gid ${PGID} app && \
-    mkdir -p ${HOME}
+    mkdir -p ${HOME};
 
 WORKDIR ${HOME}
 VOLUME ${HOME}
 
 EXPOSE ${HTTP_PORT} ${HTTPS_PORT}
-ENTRYPOINT [ "/usr/local/bin/docker-entrypoint.sh" ]
+ENTRYPOINT [ "docker-entrypoint.sh" ]
 CMD [ "supervisord" ]
 
 LABEL org.opencontainers.image.title="Winbox"
