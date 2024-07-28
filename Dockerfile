@@ -46,6 +46,7 @@ RUN set -xe && \
 
 COPY --from=easy-novnc-build /bin/easy-novnc /usr/local/bin/
 COPY ./templates/. /
+COPY docker-entrypoint.sh /usr/local/bin/
 
 RUN set -xe && \
     chmod 0644 /etc/cron.d/*.j2 /etc/nginx/*.j2 /etc/xdg/openbox/*.j2 /etc/*.j2 && \
