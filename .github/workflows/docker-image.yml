@@ -42,5 +42,4 @@ jobs:
         with:
           push: true
           tags: |
-            t4skforce/docker-novnc:latest
-            ghcr.io/t4skforce/docker-novnc:latest
+            stardrmy/novnc-dockerwinbox:latest
